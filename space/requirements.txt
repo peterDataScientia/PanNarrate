@@ -1,0 +1,5 @@
+# Gradio ZeroGPU SDK + Resemble AI Chatterbox
+spaces>=0.43,<1
+gradio>=5.49,<6
+chatterbox-tts>=0.1.6
+soundfile>=0.13
