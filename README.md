@@ -54,3 +54,7 @@ PanNarrate is meant for reading legitimate academic content. Do not upload or cl
 - [Gradio](https://www.gradio.app/)
 - [Chatterbox](https://github.com/resemble-ai/chatterbox) (MIT)
 - [Hugging Face ZeroGPU](https://huggingface.co/docs/hub/spaces-zerogpu)
+
+## No-GPU narration option
+
+PanNarrate defaults to **Kokoro (English only)** in your browser using WebAssembly CPU inference. The model downloads from Hugging Face on first use; no paid API or local discrete GPU is required. Loading and synthesis can be slow on low-memory devices, so desktop Chromium browsers are recommended. This mode is neural audio, not browser speechSynthesis. It does **not** support voice cloning or Kiswahili. The optional Gradio/Chatterbox backend in `space/` is experimental, requires an independent GPU host, and is not deployed on Vercel.
