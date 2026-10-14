@@ -4,6 +4,7 @@ on:
     paths:
       - '.github/workflows/voice-smoke.yml'
       - 'scripts/voice-smoke.mjs'
+      - 'scripts/page-smoke.mjs'
   workflow_dispatch:
 
 permissions:
@@ -24,3 +25,5 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Check hosted neural voice live
         run: node scripts/voice-smoke.mjs
+      - name: Check full PDF page playback workflow
+        run: node scripts/page-smoke.mjs
