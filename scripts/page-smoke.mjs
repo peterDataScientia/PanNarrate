@@ -43,16 +43,21 @@ try {
    window.__testVoiceCalls=[];
    window.puter={
      auth:{isSignedIn:()=>true},
-     ai:{txt2speech:async text=>{
-       window.__testVoiceCalls.push(text);
+     ai:{txt2speech:async (text,options)=>{
+       window.__testVoiceCalls.push({text,options});
        return getAudio();
      }}
    };
  });
  await app.getByRole('button',{name:'Read full page'}).click();
  await app.waitForFunction(()=>window.__testVoiceCalls?.length>=1,{timeout:15000});
- const spoken=await app.evaluate(()=>window.__testVoiceCalls.join(' '));
+ const spoken=await app.evaluate(()=>window.__testVoiceCalls.map(v=>v.text).join(' '));
  console.log('Full page request characters:',spoken.length,'speech samples:',(await app.evaluate(()=>window.__testVoiceCalls)).length);
+ const chosen=await app.evaluate(()=>window.__testVoiceCalls[0].options);
+ assert.equal(chosen.provider,'openai');
+ assert.equal(chosen.voice,'marin');
+ assert.equal(chosen.model,'gpt-4o-mini-tts');
+ assert.match(chosen.instructions,/academic/i);
  assert.ok(spoken.includes(intro),'did not read introduction');
  assert.ok(spoken.includes(methods),'did not read second paragraph');
  await app.getByRole('button',{name:'Next page',exact:true}).click();
