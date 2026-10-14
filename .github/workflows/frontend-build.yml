@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
       - name: Verify full-page reading integrity
-        run: node --test tests/reading.test.mjs
+        run: node --test tests/*.test.mjs
       - name: Compile frontend
         run: npm run build
