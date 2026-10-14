@@ -88,7 +88,7 @@ function App(){
         if(!pending)return;
         clearTimeout(pending.timer);
         pendingTasks.current.delete(message.id);
-        if(message.type==='result') pending.resolve({sampleRate:message.sampleRate,samples:new Float32Array(message.samples)});
+        if(message.type==='result') pending.resolve({wav:message.wav});
         else pending.reject(new Error(message.message || 'Neural audio generation failed.'));
       };
       worker.onerror=(event)=>{
@@ -121,8 +121,9 @@ function App(){
         ? await sequence.prefetched
         : await requestCpuAudio(sequence.parts[index],sequence.voice);
       if(abort.current!==sequence.token)return;
-      if(!result?.sampleRate||!result?.samples?.length)throw new Error('The voice model returned empty audio.');
-      const blob=pcmToWav(result.samples,result.sampleRate);
+      if(result?.error)throw result.error;
+      if(!result?.wav||result.wav.byteLength<=44)throw new Error('Neural model returned no playable WAV audio.');
+      const blob=new Blob([result.wav],{type:'audio/wav'});
       const url=URL.createObjectURL(blob);
       if(audioUrl.current)URL.revokeObjectURL(audioUrl.current);
       audioUrl.current=url;
