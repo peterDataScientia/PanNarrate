@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/voice-smoke.yml'
+      - 'scripts/voice-smoke.mjs'
   workflow_dispatch:
 
 permissions:
