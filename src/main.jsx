@@ -67,8 +67,10 @@ function App(){
     speechSequence.current=null;
     if(audio.current){audio.current.pause();audio.current.removeAttribute('src');audio.current.load();}
     if(audioUrl.current){URL.revokeObjectURL(audioUrl.current);audioUrl.current='';}
-    // Terminate stuck CPU generation on Stop; re-create the worker on the next Play.
-    if(engineWorker.current){engineWorker.current.terminate();engineWorker.current=null;workerEngine.current=null;}
+    // Keep an idle neural model warm across passages; only terminate active work.
+    if(engineWorker.current && pendingTasks.current.size>0){
+      engineWorker.current.terminate();engineWorker.current=null;workerEngine.current=null;
+    }
     for(const task of pendingTasks.current.values()){clearTimeout(task.timer);task.reject(new Error('Narration stopped'));}
     pendingTasks.current.clear();
     setAudioSrc('');setPlaying(false);setQueue(false);setGenerating(false);setVoiceStage('');setElapsed(0);
