@@ -66,3 +66,9 @@ PanNarrate defaults to **Kokoro (English only)** in your browser using WebAssemb
 - **High quality:** Kokoro English neural voice (slower on CPUs).
 
 The Voice engine panel includes a short speech test. On first use, monitor download progress. This browser-only approach does not currently support Kiswahili narration or voice cloning; an external engine would be required. Actual synthesis speed depends on the user's CPU and browser.
+
+## Cloud neural speech — default mode
+
+PanNarrate now defaults to **Cloud neural · No GPU**. The client sends only the selected text passage to the Puter TTS API (AWS Polly neural, Joanna, English) and plays the returned audio URL. The PDF and text extraction remain in the user's browser. The local Piper/Kokoro engines remain selectable as alternatives. The cloud service may require the listener to sign in to Puter; users receive a **limited free monthly allowance**, and usage beyond that allowance may require credits. This is not an unlimited free service; check the [official Puter usage limits](https://docs.puter.com/rate-limits-and-quotas/).
+
+The website can be deployed without a Cloudflare account or Hugging Face GPU because the hosted voice provider handles inference. This approach does not yet provide Kiswahili voice or voice cloning. Cloud response latency is provider/network-dependent and must be measured end-to-end on production.
