@@ -31,10 +31,15 @@ self.onmessage = async (event) => {
     const tts = await getModel();
     self.postMessage({type: 'stage', message: 'Synthesizing speech on your CPU…'});
     const audio = await tts.generate(text, {voice: voice || 'af_heart'});
-    const arr = audio.data instanceof Float32Array ? audio.data : new Float32Array(audio.data);
-    const safe = new Float32Array(arr.length);
-    safe.set(arr);
-    self.postMessage({type: 'result', id, sampleRate: audio.sampling_rate || 24000, samples: safe.buffer}, [safe.buffer]);
+    // Use RawAudio's supported WAV serializer: its data layout is internal
+    // to transformers.js and should not be guessed or reinterpreted here.
+    const wavBlob = await audio.toBlob();
+    if (!wavBlob || wavBlob.size <= 44) {
+      const count = audio?.data?.length ?? 0;
+      throw Error('Neural inference produced no waveform (' + count + ' PCM samples). Try another voice or check the browser runtime.');
+    }
+    const wav = await wavBlob.arrayBuffer();
+    self.postMessage({type: 'result', id, wav}, [wav]);
   } catch (error) {
     self.postMessage({type: 'error', id, message: String(error?.message || error)});
   }
