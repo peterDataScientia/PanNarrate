@@ -55,7 +55,7 @@ function App(){
   const [space,setSpace]=useState(()=>localStorage.getItem('pannarrate-space') || DEFAULT_SPACE),[editSpace,setEditSpace]=useState(false),[side,setSide]=useState(true),[voiceError,setVoiceError]=useState('');
   const [docScale,setDocScale]=useState(1.25),[viewport,setViewport]=useState(null);
   const [voicePreset,setVoicePreset]=useState('af_heart');
-  const [voiceEngine,setVoiceEngine]=useState('fast');
+  const [voiceEngine,setVoiceEngine]=useState('cloud');
   const [voiceStage,setVoiceStage]=useState(''),[elapsed,setElapsed]=useState(0);
   const canvas=useRef(null), audio=useRef(null), input=useRef(null), abort=useRef(0), client=useRef(null), audioUrl=useRef(''), engineWorker=useRef(null), pendingTasks=useRef(new Map()), taskId=useRef(0), speechSequence=useRef(null), workerEngine=useRef(null);
   const reader = data?.segments ?? [];
@@ -81,6 +81,24 @@ function App(){
   useEffect(()=>{if(audio.current)audio.current.playbackRate=speed},[speed,audioSrc]);
   const changeSpace=e=>{let v=e.trim().replace(/^https:\/\/huggingface\.co\/spaces\//,'').replace(/^https:\/\//,'').replace(/\/$/,'');setSpace(v);localStorage.setItem('pannarrate-space',v);client.current=null;};
   const select=(s)=>{if(!s)return;stopAudio();setActive(s.id);setPage(s.page);};
+  async function requestHostedAudio(text) {
+    setVoiceStage('Requesting neural speech from cloud provider…');
+    const puter = window.puter;
+    if (!puter?.ai?.txt2speech) {
+      throw new Error('Cloud TTS SDK is unavailable. Check your connection to js.puter.com, or select a local CPU engine.');
+    }
+    // Puter uses a per-user free monthly allowance, after which credits may be required.
+    // It can ask the user to authenticate; the app never receives passwords/API tokens.
+    const sound = await puter.ai.txt2speech(text, {
+      provider: 'aws-polly',
+      engine: 'neural',
+      voice: 'Joanna',
+      language: 'en-US'
+    });
+    const url = sound?.src || sound?.currentSrc;
+    if (!url) throw new Error('Hosted voice returned no playable audio URL.');
+    return {url};
+  }
   function requestCpuAudio(text,voice,engine='fast') {
     if(engineWorker.current && workerEngine.current!==engine){
       engineWorker.current.terminate();
@@ -127,17 +145,22 @@ function App(){
   async function playCpuChunk(sequence,index){
     if(abort.current!==sequence.token)return;
     setGenerating(true);
-    setVoiceStage(index===0?(sequence.engine==='fast'?'Initializing Fast neural voice…':'Initializing high-quality neural voice…'):'Preparing the next audio segment…');
+    setVoiceStage(index===0?(sequence.engine==='cloud'?'Connecting to hosted neural narration…':sequence.engine==='fast'?'Initializing Fast neural voice…':'Initializing high-quality neural voice…'):'Preparing the next audio segment…');
     try{
       const result=sequence.prefetched
         ? await sequence.prefetched
-        : await requestCpuAudio(sequence.parts[index],sequence.voice,sequence.engine);
+        : sequence.engine==='cloud'
+          ? await requestHostedAudio(sequence.parts[index])
+          : await requestCpuAudio(sequence.parts[index],sequence.voice,sequence.engine);
       if(abort.current!==sequence.token)return;
       if(result?.error)throw result.error;
-      if(!result?.wav||result.wav.byteLength<=44)throw new Error('Neural model returned no playable WAV audio.');
-      const blob=new Blob([result.wav],{type:'audio/wav'});
-      const url=URL.createObjectURL(blob);
-      if(audioUrl.current)URL.revokeObjectURL(audioUrl.current);
+      let url=result?.url;
+      if(!url){
+        if(!result?.wav||result.wav.byteLength<=44)throw new Error('Neural model returned no playable WAV audio.');
+        const blob=new Blob([result.wav],{type:'audio/wav'});
+        url=URL.createObjectURL(blob);
+      }
+      if(audioUrl.current?.startsWith('blob:'))URL.revokeObjectURL(audioUrl.current);
       audioUrl.current=url;
       sequence.index=index;
       sequence.prefetched=null;
@@ -145,7 +168,7 @@ function App(){
       setPlaying(true);
       setGenerating(false);
       setVoiceStage('');
-      if(index+1<sequence.parts.length){
+      if(index+1<sequence.parts.length && sequence.engine!=='cloud'){
         sequence.prefetched=requestCpuAudio(sequence.parts[index+1],sequence.voice,sequence.engine)
           .then(result=>result,error=>({error}));
       }
@@ -178,7 +201,7 @@ function App(){
     setElapsed(0);
     try{
       if(!needsCloud){
-        const parts=splitNarration(s.text);
+        const parts=splitNarration(s.text,voiceEngine==='cloud'?650:135);
         const sequence={token,parts,index:0,voice:voiceEngine==='fast'?'en_US-hfc_female-medium':voicePreset,engine:voiceEngine,prefetched:null};
         speechSequence.current=sequence;
         setActive(s.id);if(data&&s.page)setPage(s.page);
@@ -232,14 +255,14 @@ function App(){
   };
   const onDrop=e=>{e.preventDefault();onFile(e.dataTransfer.files?.[0])};
   return <div className="app">
-    <header className="topbar"><div className="brand"><span className="brandmark"><Headphones size={20}/></span><div><strong>PanNarrate</strong><small>SCIENTIFIC AUDIO READER</small></div></div><div className="topright"><span className="status"><span className={`dot ${space?'connected':'idle'}`}></span>{language==='en'&&!reference?(voiceEngine==='fast'?'Fast neural voice · Browser CPU':'High quality · Browser CPU'):space?'External voice endpoint set':'External voice not connected'}</span><button className="ghost" onClick={()=>setEditSpace(v=>!v)}><Settings2 size={17}/> <span>Voice engine</span></button><a className="github" target="_blank" rel="noreferrer" href="https://github.com/peterDataScientia/PanNarrate">GitHub <ExternalLink size={14}/></a></div></header>
-    {editSpace&&<div className="settingpane"><div><strong>Neural voice engines</strong><button className="ghost" onClick={()=>speak({id:'voice-test',page:1,text:'Welcome to PanNarrate. This is a short test of natural neural narration.'})} disabled={generating} style={{margin:'8px 0'}}>Test English neural voice</button><p>Choose Fast (Piper) for shorter CPU synthesis times, or High quality (Kokoro) for richer narration. Both use neural networks directly in your browser, with no paid API. The selected model downloads on first use and is cached for later sessions. External Hugging Face Space is optional and only for features such as Kiswahili or personal voice cloning, if a compatible server is available. PDFs stay local for text extraction.</p></div><div className="settinginputs"><input aria-label="Hugging Face Space ID" placeholder="your-hf-username/PanNarrate-Voice" value={space} onChange={e=>changeSpace(e.target.value)}/><button onClick={()=>setEditSpace(false)}>Save</button></div></div>}
+    <header className="topbar"><div className="brand"><span className="brandmark"><Headphones size={20}/></span><div><strong>PanNarrate</strong><small>SCIENTIFIC AUDIO READER</small></div></div><div className="topright"><span className="status"><span className={`dot ${space?'connected':'idle'}`}></span>{language==='en'&&!reference?(voiceEngine==='cloud'?'Cloud neural voice · No GPU':voiceEngine==='fast'?'Fast neural voice · Browser CPU':'High quality · Browser CPU'):space?'External voice endpoint set':'External voice not connected'}</span><button className="ghost" onClick={()=>setEditSpace(v=>!v)}><Settings2 size={17}/> <span>Voice engine</span></button><a className="github" target="_blank" rel="noreferrer" href="https://github.com/peterDataScientia/PanNarrate">GitHub <ExternalLink size={14}/></a></div></header>
+    {editSpace&&<div className="settingpane"><div><strong>Neural voice engines</strong><button className="ghost" onClick={()=>speak({id:'voice-test',page:1,text:'Welcome to PanNarrate. This is a short test of natural neural narration.'})} disabled={generating} style={{margin:'8px 0'}}>Test English neural voice</button><p>Cloud neural narration uses Puter and a hosted TTS provider: no GPU or model download on your device. Your selected passage is sent for speech synthesis. Puter may request a sign-in; usage is covered by a limited free monthly allowance, then credits may be needed. Fast Piper and High-quality Kokoro are optional CPU modes. The local models download on first use. External Hugging Face Space is optional and only for features such as Kiswahili or personal voice cloning, if a compatible server is available. PDFs stay local for text extraction.</p></div><div className="settinginputs"><input aria-label="Hugging Face Space ID" placeholder="your-hf-username/PanNarrate-Voice" value={space} onChange={e=>changeSpace(e.target.value)}/><button onClick={()=>setEditSpace(false)}>Save</button></div></div>}
     <div className="content">
      <aside className={`sidebar ${side?'':'closed'}`}><div className="sideinner"><div className="sideheading"><span>WORKSPACE</span><button className="iconbtn" title="Collapse sidebar" onClick={()=>setSide(false)}><PanelLeftClose size={17}/></button></div><button className="navitem selected"><BookOpen size={17}/> Document reader</button><div className="navgroup">YOUR DOCUMENT</div>{file?<div className="filechip"><FileText size={19}/><div><b>{file.name}</b><small>{data?.pageCount||'…'} pages</small></div><button title="Remove document" className="iconbtn" onClick={()=>{stopAudio();setFile(null);setData(null);setActive(null)}}><X size={15}/></button></div>:<div className="sidebarhint">Upload a PDF to begin reading.</div>}
        <div className="sidebarend"><span className="tinyicon"><Sparkles size={16}/></span><div><b>Built for researchers</b><p>Published papers · Manuscripts · Theses</p></div></div></div></aside>
      <main className="main">
       {!side&&<button className="showSide iconbtn" title="Show sidebar" onClick={()=>setSide(true)}><PanelLeftOpen size={19}/></button>}
-      {!file&&!parsing?<div className="welcome"><div className="eyebrow">YOUR RESEARCH, OUT LOUD</div><h1>Give your papers<br/><em>a voice.</em></h1><p className="heroText">A focused workspace to read, review and listen to scientific documents. Your original PDF stays visible as you work.</p><div className="dropzone" onDragOver={e=>e.preventDefault()} onDrop={onDrop} onClick={()=>input.current?.click()} role="button" tabIndex={0} onKeyDown={e=>e.key==='Enter'&&input.current?.click()}><span className="uploadicon"><UploadCloud size={26}/></span><strong>Drop a research paper or manuscript here</strong><span>or click to browse your files</span><small>PDF only · Up to 35 MB · processed locally for text extraction</small></div><div className="benefits"><div><FileText size={18}/> Two-column aware extraction</div><div><Headphones size={18}/> Fast neural voice · no GPU</div><div><Mic2 size={18}/> Cloning needs an external engine</div></div></div>:
+      {!file&&!parsing?<div className="welcome"><div className="eyebrow">YOUR RESEARCH, OUT LOUD</div><h1>Give your papers<br/><em>a voice.</em></h1><p className="heroText">A focused workspace to read, review and listen to scientific documents. Your original PDF stays visible as you work.</p><div className="dropzone" onDragOver={e=>e.preventDefault()} onDrop={onDrop} onClick={()=>input.current?.click()} role="button" tabIndex={0} onKeyDown={e=>e.key==='Enter'&&input.current?.click()}><span className="uploadicon"><UploadCloud size={26}/></span><strong>Drop a research paper or manuscript here</strong><span>or click to browse your files</span><small>PDF only · Up to 35 MB · processed locally for text extraction</small></div><div className="benefits"><div><FileText size={18}/> Two-column aware extraction</div><div><Headphones size={18}/> Cloud neural voice · no GPU</div><div><Mic2 size={18}/> Cloning needs an external engine</div></div></div>:
       <div className="readerlayout">
        <section className="pdfpanel"><div className="panehead"><div className="panelname"><FileText size={17}/><b>Document</b><span>{file?.name}</span></div><div className="tools"><span className="pager"><button aria-label="Previous page" onClick={()=>setPage(v=>Math.max(1,v-1))} disabled={page<=1}><ChevronLeft size={16}/></button>{page} / {data?.pageCount||'…'}<button aria-label="Next page" disabled={!data||page>=data.pageCount} onClick={()=>setPage(v=>Math.min(data.pageCount,v+1))}><ChevronRight size={16}/></button></span><select value={docScale} onChange={e=>setDocScale(Number(e.target.value))} aria-label="Zoom"><option value="1">100%</option><option value="1.25">125%</option><option value="1.5">150%</option></select></div></div>
          {parsing?<div className="loadpage"><Loader2 className="spin" size={34}/><b>Reading document structure…</b><span>{Math.round(progress*100)}%</span></div>:<div className="pdfscroll"><div className="pdfsheet" style={{width:viewport?.width}}><canvas ref={canvas} aria-label={`PDF page ${page}`}/>{selected?.page===page&&viewport&&<div className="pdfhighlights" style={{width:viewport.width,height:viewport.height}}>{selected.rects.map((r,i)=><div key={i} className="highlight" style={{left:r.x*docScale,top:r.top*docScale,width:r.width*docScale,height:r.height*docScale}}/>)}</div>}</div></div>}
@@ -255,7 +278,7 @@ function App(){
     </div>
     <footer className="player"><div className="now"><div className="wavebox"><Headphones size={20}/></div><div><b>{file?file.name:'No document loaded'}</b><small>{generating?`${voiceStage||'Preparing neural narration…'} (${elapsed}s)`:(selected?`Page ${selected.page} · ${selected.text.slice(0,65)}`:'Choose a passage to start listening')}</small></div></div>
       <div className="playermain"><div className="transport"><button title="Previous passage" disabled={!reader.length||generating} onClick={()=>step(-1)}><SkipBack size={18}/></button><button className="play" title="Play / Pause" disabled={!reader.length||generating} onClick={togglePlay}>{generating?<Loader2 className="spin" size={21}/>:playing?<Pause size={20} fill="currentColor"/>:<Play size={20} fill="currentColor"/>}</button><button title="Next passage" disabled={!reader.length||generating} onClick={()=>step(1)}><SkipForward size={18}/></button><button title="Stop" onClick={stopAudio}><Square size={14}/></button></div><div className="audioarea"><audio ref={audio} src={audioSrc||undefined} onEnded={ended} onError={()=>setVoiceError('Audio playback failed. Try the next passage.')} onPause={()=>setPlaying(false)} onPlay={()=>setPlaying(true)} controls={!!audioSrc}/><label className="autoplay"><input type="checkbox" checked={queue} onChange={e=>setQueue(e.target.checked)}/> Continue reading</label></div></div>
-      <div className="playeropts"><select aria-label="Voice language" value={language} onChange={e=>{stopAudio();setLanguage(e.target.value)}}><option value="en">English</option><option value="sw">Kiswahili (external engine)</option></select>{language==='en'&&!reference&&<select aria-label="Neural engine" value={voiceEngine} onChange={e=>{stopAudio();setVoiceEngine(e.target.value)}}><option value="fast">Fast · Piper CPU</option><option value="quality">High quality · Kokoro CPU</option></select>}{language==='en'&&!reference&&voiceEngine==='quality'&&<select aria-label="Narrator voice" value={voicePreset} onChange={e=>{stopAudio();setVoicePreset(e.target.value)}}><option value="af_heart">American · Heart</option><option value="af_bella">American · Bella</option><option value="am_michael">American · Michael</option><option value="bf_emma">British · Emma</option><option value="bm_george">British · George</option></select>}<select value={speed} aria-label="Playback speed" onChange={e=>setSpeed(Number(e.target.value))}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>{audioSrc&&<a href={audioSrc} target="_blank" rel="noreferrer" title="Open current audio segment"><Download size={18}/></a>}</div>
+      <div className="playeropts"><select aria-label="Voice language" value={language} onChange={e=>{stopAudio();setLanguage(e.target.value)}}><option value="en">English</option><option value="sw">Kiswahili (external engine)</option></select>{language==='en'&&!reference&&<select aria-label="Neural engine" value={voiceEngine} onChange={e=>{stopAudio();setVoiceEngine(e.target.value)}}><option value="cloud">Cloud neural · No GPU</option><option value="fast">Piper · Local CPU</option><option value="quality">Kokoro · Local CPU</option></select>}{language==='en'&&!reference&&voiceEngine==='quality'&&<select aria-label="Narrator voice" value={voicePreset} onChange={e=>{stopAudio();setVoicePreset(e.target.value)}}><option value="af_heart">American · Heart</option><option value="af_bella">American · Bella</option><option value="am_michael">American · Michael</option><option value="bf_emma">British · Emma</option><option value="bm_george">British · George</option></select>}<select value={speed} aria-label="Playback speed" onChange={e=>setSpeed(Number(e.target.value))}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>{audioSrc&&<a href={audioSrc} target="_blank" rel="noreferrer" title="Open current audio segment"><Download size={18}/></a>}</div>
     </footer>
     <div className="voicebar"><span><Mic2 size={16}/> Voice cloning requires external engine</span><input type="file" accept="audio/*" onChange={e=>{setReference(e.target.files?.[0]||null);stopAudio()}}/><label><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/> I own this voice or have explicit permission to clone it</label>{voiceError&&<span className="errortext"><AlertCircle size={15}/>{voiceError}</span>}</div>
   </div>
