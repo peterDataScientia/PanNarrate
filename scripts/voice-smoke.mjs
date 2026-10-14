@@ -14,7 +14,7 @@ try {
   const warning=await page.locator('.errortext').innerText({timeout:8000});
   console.log('Before authentication:',warning);
   if(!warning.includes('One-time Cloud Voice connection required'))throw new Error('Missing explicit sign-in notice');
-  const running=await page.getByRole('button',{name:'Play / Pause'}).isDisabled();
+  const running=await page.getByRole('button',{name:'Test English neural voice'}).isDisabled();
   if(running)throw new Error('Play is still spinning instead of showing login requirement');
   await page.getByRole('button',{name:'Connect Cloud Voice · one time'}).click();
   await page.waitForTimeout(1200);
