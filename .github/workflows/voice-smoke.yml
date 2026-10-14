@@ -1,7 +1,8 @@
-name: Hosted voice browser smoke
+name: Free narration browser smoke
 on:
   push:
     paths:
+      - 'src/**'
       - '.github/workflows/voice-smoke.yml'
       - 'scripts/voice-smoke.mjs'
       - 'scripts/page-smoke.mjs'
@@ -23,7 +24,16 @@ jobs:
         run: |
           npm install --no-save --no-audit --no-fund playwright@1.56.0
           npx playwright install chromium --with-deps
-      - name: Check hosted neural voice live
-        run: node scripts/voice-smoke.mjs
-      - name: Check full PDF page playback workflow
-        run: node scripts/page-smoke.mjs
+      - name: Start same-commit web application
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/pannarrate-vite.log 2>&1 &
+          for i in $(seq 1 25); do
+            if curl --fail -s http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/pannarrate-vite.log
+          exit 1
+      - name: Check free voice is default and Puter requires explicit opt-in
+        run: BASE_URL=http://127.0.0.1:4173 node scripts/voice-smoke.mjs
+      - name: Check free full PDF page narration and navigation
+        run: BASE_URL=http://127.0.0.1:4173 node scripts/page-smoke.mjs
