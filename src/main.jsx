@@ -56,6 +56,7 @@ function App(){
   const [docScale,setDocScale]=useState(1.25),[viewport,setViewport]=useState(null);
   const [voicePreset,setVoicePreset]=useState('af_heart');
   const [voiceEngine,setVoiceEngine]=useState('cloud');
+  const [cloudConnected,setCloudConnected]=useState(()=>Boolean(window.puter?.auth?.isSignedIn?.()));
   const [voiceStage,setVoiceStage]=useState(''),[elapsed,setElapsed]=useState(0);
   const canvas=useRef(null), audio=useRef(null), input=useRef(null), abort=useRef(0), client=useRef(null), audioUrl=useRef(''), engineWorker=useRef(null), pendingTasks=useRef(new Map()), taskId=useRef(0), speechSequence=useRef(null), workerEngine=useRef(null);
   const reader = data?.segments ?? [];
@@ -81,6 +82,25 @@ function App(){
   useEffect(()=>{if(audio.current)audio.current.playbackRate=speed},[speed,audioSrc]);
   const changeSpace=e=>{let v=e.trim().replace(/^https:\/\/huggingface\.co\/spaces\//,'').replace(/^https:\/\//,'').replace(/\/$/,'');setSpace(v);localStorage.setItem('pannarrate-space',v);client.current=null;};
   const select=(s)=>{if(!s)return;stopAudio();setActive(s.id);setPage(s.page);};
+  function connectCloudVoice() {
+    const api=window.puter?.auth;
+    if(!api?.signIn){
+      setVoiceError('Cloud voice SDK could not load. Check your connection or disable script blocking for js.puter.com.');
+      return;
+    }
+    try {
+      // A real button click is needed: browser auth must open a popup.
+      api.signIn({attempt_temp_user_creation:true})
+        .then(()=>{
+          const ok=Boolean(api.isSignedIn?.());
+          setCloudConnected(ok);
+          setVoiceError(ok?'':'Cloud voice authentication did not finish. Try Connect again.');
+        })
+        .catch(error=>setVoiceError('Cloud voice connection: '+(error?.message||error?.msg||String(error))));
+    } catch(error) {
+      setVoiceError('Cloud voice connection: '+(error?.message||String(error)));
+    }
+  }
   async function requestHostedAudio(text) {
     setVoiceStage('Requesting neural speech from cloud provider…');
     const puter = window.puter;
@@ -193,6 +213,12 @@ function App(){
       return;
     }
     if(reference&&!consent){setVoiceError('Confirm you own this voice or have permission to clone it.');return;}
+    if(!needsCloud&&voiceEngine==='cloud'&&!window.puter?.auth?.isSignedIn?.()){
+      setVoiceError('One-time Cloud Voice connection required. Open Voice engine and select Connect Cloud Voice. No GPU needed.');
+      setEditSpace(true);
+      return;
+    }
+    if(!needsCloud&&voiceEngine==='cloud'&&!cloudConnected)setCloudConnected(true);
     const token=++abort.current;
     speechSequence.current=null;
     setVoiceError('');
@@ -256,7 +282,7 @@ function App(){
   const onDrop=e=>{e.preventDefault();onFile(e.dataTransfer.files?.[0])};
   return <div className="app">
     <header className="topbar"><div className="brand"><span className="brandmark"><Headphones size={20}/></span><div><strong>PanNarrate</strong><small>SCIENTIFIC AUDIO READER</small></div></div><div className="topright"><span className="status"><span className={`dot ${space?'connected':'idle'}`}></span>{language==='en'&&!reference?(voiceEngine==='cloud'?'Cloud neural voice · No GPU':voiceEngine==='fast'?'Fast neural voice · Browser CPU':'High quality · Browser CPU'):space?'External voice endpoint set':'External voice not connected'}</span><button className="ghost" onClick={()=>setEditSpace(v=>!v)}><Settings2 size={17}/> <span>Voice engine</span></button><a className="github" target="_blank" rel="noreferrer" href="https://github.com/peterDataScientia/PanNarrate">GitHub <ExternalLink size={14}/></a></div></header>
-    {editSpace&&<div className="settingpane"><div><strong>Neural voice engines</strong><button className="ghost" onClick={()=>speak({id:'voice-test',page:1,text:'Welcome to PanNarrate. This is a short test of natural neural narration.'})} disabled={generating} style={{margin:'8px 0'}}>Test English neural voice</button><p>Cloud neural narration uses Puter and a hosted TTS provider: no GPU or model download on your device. Your selected passage is sent for speech synthesis. Puter may request a sign-in; usage is covered by a limited free monthly allowance, then credits may be needed. Fast Piper and High-quality Kokoro are optional CPU modes. The local models download on first use. External Hugging Face Space is optional and only for features such as Kiswahili or personal voice cloning, if a compatible server is available. PDFs stay local for text extraction.</p></div><div className="settinginputs"><input aria-label="Hugging Face Space ID" placeholder="your-hf-username/PanNarrate-Voice" value={space} onChange={e=>changeSpace(e.target.value)}/><button onClick={()=>setEditSpace(false)}>Save</button></div></div>}
+    {editSpace&&<div className="settingpane"><div><strong>Neural voice engines</strong>{voiceEngine==='cloud'&&<button className="ghost" onClick={connectCloudVoice} disabled={cloudConnected} style={{margin:'8px 8px 8px 0'}}>{cloudConnected?'Cloud voice connected':'Connect Cloud Voice · one time'}</button>}<button className="ghost" onClick={()=>speak({id:'voice-test',page:1,text:'Welcome to PanNarrate. This is a short test of natural neural narration.'})} disabled={generating} style={{margin:'8px 0'}}>Test English neural voice</button><p>Cloud neural narration uses Puter and a hosted TTS provider: no GPU or model download on your device. Your selected passage is sent for speech synthesis. Puter may request a sign-in; usage is covered by a limited free monthly allowance, then credits may be needed. Fast Piper and High-quality Kokoro are optional CPU modes. The local models download on first use. Press Connect Cloud Voice once to authenticate before trying the cloud narration test. External Hugging Face Space is optional and only for features such as Kiswahili or personal voice cloning, if a compatible server is available. PDFs stay local for text extraction.</p></div><div className="settinginputs"><input aria-label="Hugging Face Space ID" placeholder="your-hf-username/PanNarrate-Voice" value={space} onChange={e=>changeSpace(e.target.value)}/><button onClick={()=>setEditSpace(false)}>Save</button></div></div>}
     <div className="content">
      <aside className={`sidebar ${side?'':'closed'}`}><div className="sideinner"><div className="sideheading"><span>WORKSPACE</span><button className="iconbtn" title="Collapse sidebar" onClick={()=>setSide(false)}><PanelLeftClose size={17}/></button></div><button className="navitem selected"><BookOpen size={17}/> Document reader</button><div className="navgroup">YOUR DOCUMENT</div>{file?<div className="filechip"><FileText size={19}/><div><b>{file.name}</b><small>{data?.pageCount||'…'} pages</small></div><button title="Remove document" className="iconbtn" onClick={()=>{stopAudio();setFile(null);setData(null);setActive(null)}}><X size={15}/></button></div>:<div className="sidebarhint">Upload a PDF to begin reading.</div>}
        <div className="sidebarend"><span className="tinyicon"><Sparkles size={16}/></span><div><b>Built for researchers</b><p>Published papers · Manuscripts · Theses</p></div></div></div></aside>
