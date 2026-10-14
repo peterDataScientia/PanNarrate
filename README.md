@@ -58,3 +58,11 @@ PanNarrate is meant for reading legitimate academic content. Do not upload or cl
 ## No-GPU narration option
 
 PanNarrate defaults to **Kokoro (English only)** in your browser using WebAssembly CPU inference. The model downloads from Hugging Face on first use; no paid API or local discrete GPU is required. Loading and synthesis can be slow on low-memory devices, so desktop Chromium browsers are recommended. This mode is neural audio, not browser speechSynthesis. It does **not** support voice cloning or Kiswahili. The optional Gradio/Chatterbox backend in `space/` is experimental, requires an independent GPU host, and is not deployed on Vercel.
+
+
+## Speed modes (browser CPU)
+
+- **Fast (default):** Piper neural voice, `en_US-hfc_female-medium`. Model weights (~63 MB) and WASM phonemizer download once, then cache in browser origin storage for faster repeated reading. No discrete GPU or paid API. Speech naturalness may differ from Kokoro.
+- **High quality:** Kokoro English neural voice (slower on CPUs).
+
+The Voice engine panel includes a short speech test. On first use, monitor download progress. This browser-only approach does not currently support Kiswahili narration or voice cloning; an external engine would be required. Actual synthesis speed depends on the user's CPU and browser.
