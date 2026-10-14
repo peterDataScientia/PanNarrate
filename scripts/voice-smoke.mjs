@@ -10,11 +10,13 @@ try {
   await page.getByRole('button',{name:/voice engine/i}).click();
   const engine=await page.getByLabel('Neural engine').inputValue();
   if(engine!=='cloud')throw new Error('Expected Cloud neural as default, received: '+engine);
-  await page.getByRole('button',{name:'Test English neural voice'}).click();
+  const selectedVoice=await page.getByLabel('Cloud narrator voice').inputValue();
+  if(selectedVoice!=='openai-marin')throw new Error('Expected OpenAI Marin as the default narrator, received '+selectedVoice);
+  await page.getByRole('button',{name:'Preview selected voice'}).click();
   const warning=await page.locator('.errortext').innerText({timeout:8000});
   console.log('Before authentication:',warning);
   if(!warning.includes('One-time Cloud Voice connection required'))throw new Error('Missing explicit sign-in notice');
-  const running=await page.getByRole('button',{name:'Test English neural voice'}).isDisabled();
+  const running=await page.getByRole('button',{name:'Preview selected voice'}).isDisabled();
   if(running)throw new Error('Play is still spinning instead of showing login requirement');
   await page.getByRole('button',{name:'Connect Cloud Voice · one time'}).click();
   await page.waitForTimeout(1200);
