@@ -1,12 +1,12 @@
 ---
 name: poetic-sports-commentary
-description: Write original, fact-grounded, emotionally powerful live sports commentary, match introductions, penalty shootouts, trailers and reflective narratives. Use historical callbacks, psychological stakes, atmospheric detail, controlled rhythm, selective metaphor, technical interpretation and concise decisive calls. Adaptable beyond sport without imitating any commentator.
+description: Write original, fact-grounded, emotionally powerful live sports commentary, match introductions, penalty shootouts, defeats, farewells, trailers and reflective narratives. Use historical callbacks, psychological stakes, atmospheric detail, controlled rhythm, selective metaphor, technical interpretation and concise decisive calls. Adaptable beyond sport without imitating any commentator.
 ---
 
 # Poetic Sports Commentary
 
 ## Purpose
-Turn verifiable events into compelling spoken storytelling. The goal is not to make every sentence poetic: it is to make the *right* moment resonate. Preserve factual precision, dignity, natural speech and original phrasing. The commentary excerpts examined in developing this skill include a 2022 World Cup semifinal introduction and the 2022 Argentina–France penalty shootout. They are analytical references, not text to reproduce or a license to mimic a specific broadcaster.
+Turn verifiable events into compelling spoken storytelling. The goal is not to make every sentence poetic: it is to make the *right* moment resonate. Preserve factual precision, dignity, natural speech and original phrasing. The commentary excerpts examined in developing this skill include a 2022 World Cup semifinal introduction and the 2022 Argentina–France penalty shootout. A further user-supplied Messi defeat/farewell transcript was analyzed as a **hypothetical or unverified future narrative**, not a verified match result. These passages are analytical references, not text to reproduce or a license to mimic a specific broadcaster.
 
 ## Two narrative engines
 
@@ -30,6 +30,28 @@ Use for penalties, final serves, last possessions, or any dramatic individual ac
 5. **Land the consequence:** who has gained an advantage and what remains possible; never announce victory prematurely.
 
 Emotional arc: **memory → pressure → stillness → rupture → meaning**.
+
+### C. The defeat-and-farewell elegy
+Use when a celebrated protagonist falls short, a reign ends, or a cherished era appears to close. Distinguish a confirmed ending from a speculative farewell.
+
+1. **State the outcome plainly:** begin with what was lost, without burying the fact under imagery.
+2. **Move from individual to collective:** show what the outcome means for the person, their team and supporters, where grounded.
+3. **Recall a contrasting high point:** let past triumph deepen the present loss, not erase it.
+4. **Humanize with observable detail:** a bowed head, a pause, a look or a gesture, but never assert unobservable inner thoughts as fact.
+5. **Separate result from legacy:** defeat changes tonight's result, not the truth of the entire career.
+6. **Leave the future proportionate:** an open possibility can remain without a fabricated comeback, retirement or promise.
+
+Emotional arc: **verdict → contrast → vulnerability → legacy → open horizon → departure**.
+
+### Lessons from the Messi farewell narrative
+- **Temporal anaphora:** repeat a time phrase sparingly to contrast past success with a different present result. Repetition should accumulate meaning, not pad the script.
+- **Scale shift:** move from country or team to the single human subject, then back to the wider historical meaning.
+- **Antithesis:** let lasting achievement coexist with a single painful outcome. The story's emotional force comes from both being true at once.
+- **De-mythologizing:** move from an exceptional sporting identity to ordinary human fragility without treating disappointment as humiliation.
+- **Hope without denial:** a speculative question may briefly open a possible future, but should not overwrite the loss or imply certainty.
+- **The physical exit:** one grounded visible action can finish the scene more effectively than a paragraph of praise.
+- **Avoid over-closing:** a departure from the field is not automatically the end of a career.
+- **Narrative status warning:** a transcript can describe a future or imagined scenario in present/past tense. Before using it as history, confirm date, competition, opponent and outcome. If not verified, label it hypothetical; never convert it into a real result.
 
 ## Deep lessons from the commentary studies
 
@@ -82,7 +104,7 @@ Emotional arc: **memory → pressure → stillness → rupture → meaning**.
 ## Practical workflow
 
 1. **Fact ledger:** record who, event, stage, timeline, actual outcome/status, relevant history, observed behavior and precise stakes. Separate known facts from interpretation.
-2. **Choose form:** crossroads introduction, pressure sequence, live decisive call, halftime bridge, post-match reflection, documentary tribute, or non-sport human narrative.
+2. **Choose form:** crossroads introduction, pressure sequence, live decisive call, halftime bridge, post-match reflection, defeat-and-farewell elegy, documentary tribute, or non-sport human narrative.
 3. **Choose one hinge:** the key movement from past to present, or from expectation to sudden outcome.
 4. **Assign narrative jobs:** historical callback; technical observation; atmosphere; action; consequence. Remove any sentence without a job.
 5. **Choose at most one image family:** light, time, roads, weather, silence, or another fitting motif. It may be unnecessary.
@@ -102,6 +124,7 @@ Emotional arc: **memory → pressure → stillness → rupture → meaning**.
 | Halftime bridge | what occurred | tactical and emotional question | unresolved second-half stakes |
 | Post-match | verified result | contrast between paths | meaning without exaggeration |
 | Documentary tribute | achievement | evolution and setbacks | measured, human legacy |
+| Defeat-and-farewell elegy | verified defeat | high-point contrast and human detail | continuing legacy, restrained exit |
 | Reflective personal narration | concrete human subject | meaningful past and present hinge | agency, choice, open future |
 
 ## Length and delivery settings
@@ -123,6 +146,9 @@ Emotional arc: **memory → pressure → stillness → rupture → meaning**.
 
 ### Penalty sequence, 42 words
 "He missed from this distance once, on an evening he has had years to remember. The crowd is restless now. One step back. A glance at the goalkeeper. The run-up. The strike. In—and the old memory yields, for a moment, to this one."
+
+### Defeat-and-farewell, 46 words
+"The stadium has its winner. And he, who once lifted this crowd beyond its dreams, must watch the celebration from a distance. The medal will not tell the whole story. Tonight has taken the prize from his reach. It has not taken away the years."
 
 ### Reflective human crossroads, 39 words
 "He had stayed through difficult days, believing tomorrow might be kinder. But tonight brings a different question: not whether he can keep holding on, but whether he wants to. The answer is quiet. And the road beyond it remains his own."
@@ -147,8 +173,10 @@ Emotional arc: **memory → pressure → stillness → rupture → meaning**.
 - [ ] Pace changes between setup, action and consequence.
 - [ ] A rhetorical question or metaphor is used only if earned.
 - [ ] The consequence is precise and does not pre-empt the outcome.
+- [ ] A defeat is not confused with a loss of lifetime worth or a confirmed retirement.
+- [ ] A hypothetical future result is labeled as such and never presented as history.
 - [ ] The ending lands without recycled clichés.
 - [ ] Originality, humanity and requested length are preserved.
 
 ## Invocation pattern
-Silently identify **who / when / what happened or may happen / what is genuinely at stake / one relevant past moment / one observable scene detail / desired duration**. For a live action, build **callback → atmosphere → action → implication**; for an introduction, build **protagonists → stature → pivot → stakes**. If the user supplies a transcript, study its rhetorical mechanics rather than reproducing or imitating its protected expression. Unless asked for explanation, output only the polished, original commentary.
+Silently identify **who / when / what happened or may happen / what is genuinely at stake / one relevant past moment / one observable scene detail / desired duration**. For a live action, build **callback → atmosphere → action → implication**; for an introduction, build **protagonists → stature → pivot → stakes**; for a defeat or farewell, build **verdict → past high point → present human detail → enduring legacy → restrained exit**. If the user supplies a transcript, study its rhetorical mechanics rather than reproducing or imitating its protected expression. Unless asked for explanation, output only the polished, original commentary.
