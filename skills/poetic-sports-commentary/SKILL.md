@@ -1,111 +1,154 @@
 ---
 name: poetic-sports-commentary
-description: Create vivid, emotionally resonant sports commentary, introductions, transitions, and closing narrations using poetic imagery, historical stakes, character contrast, rhythmic phrasing, and disciplined factual grounding. Use when writing or revising sports voiceovers, match trailers, documentary narration, or similarly elevated event storytelling. Adaptable beyond football.
+description: Write original, fact-grounded, emotionally powerful live sports commentary, match introductions, penalty shootouts, trailers and reflective narratives. Use historical callbacks, psychological stakes, atmospheric detail, controlled rhythm, selective metaphor, technical interpretation and concise decisive calls. Adaptable beyond sport without imitating any commentator.
 ---
 
 # Poetic Sports Commentary
 
 ## Purpose
-Write original sports narration with the compression, musicality, and emotional clarity of memorable broadcast introductions. Transform verifiable sporting facts into a human drama without inflating facts, imitating a named commentator's distinctive voice, or reusing recognizable lines.
+Turn verifiable events into compelling spoken storytelling. The goal is not to make every sentence poetic: it is to make the *right* moment resonate. Preserve factual precision, dignity, natural speech and original phrasing. The commentary excerpts examined in developing this skill include a 2022 World Cup semifinal introduction and the 2022 Argentina–France penalty shootout. They are analytical references, not text to reproduce or a license to mimic a specific broadcaster.
 
-## Core model: the emotional architecture
-The source passage about Messi and Modrić demonstrates a **four-move structure**:
+## Two narrative engines
 
-1. **Name the protagonists.** Begin with two names or a powerful, concrete subject. Make the conflict immediately legible.
-2. **Elevate their significance.** Use short parallel metaphors to express enduring excellence, not just list achievements.
-3. **Pivot to the present moment.** Introduce a contrasting conjunction or temporal hinge: *yet, but, tonight, now*. Move from enduring legacy to fleeting opportunity.
-4. **State an irreversible stake.** Clarify exactly what can be won, lost, or changed; often use balanced opposition (*two arrive; one advances*). End on an image, decision, or forward-driving line.
+### A. The crossroads introduction
+Use when history, rivalry or an approaching decisive event is the story.
 
-Emotional trajectory: **reverence → tension → inevitability → anticipation**.
+1. **Name the protagonists:** two names, teams, or one concrete human subject.
+2. **Give them earned stature:** a fact, contrast, or restrained parallel image; never inflate achievements.
+3. **Pivot:** move from years of history to the few seconds or minutes ahead.
+4. **Define the real stake:** what changes if each possible outcome occurs; keep uncertainty where the result is unknown.
 
-## Craft principles
+Emotional arc: **recognition → reverence → tension → possibility**.
 
-### Metaphor that earns its place
-- Choose a coherent image family (light, time, journeys, weather, architecture, theatre) instead of stacking unrelated figures.
-- Let imagery illuminate a real quality: persistence, creativity, resilience, rivalry, pressure, or an approaching farewell.
-- Prefer one precise metaphor to three generic adjectives.
-- Metaphors are figurative; dates, scores, injuries, results, records, and qualifications must be accurate.
+### B. The pressure-moment sequence
+Use for penalties, final serves, last possessions, or any dramatic individual action.
 
-### Rhythm and oral delivery
-- Alternate compact sentence fragments with longer, flowing sentences.
-- Use parallel structures and carefully placed repetition to make lines memorable.
-- Build toward a final clause with a decisive stress word.
-- Read aloud: trim clauses that cannot be spoken naturally; avoid excessive alliteration, abstraction, and grandiosity.
-- Use punctuation for breath and emphasis, not ornate decoration.
+1. **Historical callback:** recall one directly relevant prior success or failure, preferably under comparable pressure.
+2. **Interpret the present:** identify what that experience makes meaningful *now*, without claiming to read minds.
+3. **Put the audience in the scene:** a concrete sound, movement, pause, body posture, crowd reaction or ball-handling detail.
+4. **Call the action plainly:** short, immediate, accurate words; do not obscure the actual play with metaphor.
+5. **Land the consequence:** who has gained an advantage and what remains possible; never announce victory prematurely.
 
-### Stakes and contrast
-- Make a conflict concrete: experience versus youth, two styles, a final chance, redemption, a historic first, survival or advancement.
-- Use a clear narrative hinge to turn biography into the imminent game.
-- For knockout matches, explain who advances and what follows. For league games, never invent elimination stakes; use points, titles, survival, or rivalry only when supported.
-- Do not assume athletes are retiring, that this is their final appearance, or that a team is destined to win.
+Emotional arc: **memory → pressure → stillness → rupture → meaning**.
 
-### Humanity without exaggeration
-- Characterize competitors with dignity. Treat both sides as agents, not props.
-- Translate a statistic into its *meaning* only where the interpretation is defensible.
-- Keep the audience emotionally involved without claiming knowledge of an athlete's private thoughts.
+## Deep lessons from the commentary studies
 
-## Workflow
+### Historical callbacks must carry narrative weight
+- Do not list statistics merely because they are available. Choose past moments that transform how the present one feels.
+- An earlier missed penalty and a current chance establish a **redemption question**, not a guaranteed redemption story.
+- Repeated past conversions can establish a pattern of composure without implying the next kick is certain.
+- Keep competitions, years, opponents, orders of penalties and results correct. If uncertain, generalize or verify.
 
-1. **Extract facts:** participants, event, competition stage, venue/date if relevant, result status, documented history, and genuine stakes. Mark unknowns; request or verify only material facts.
-2. **Choose point of view:** pre-match, live, halftime, post-match, tribute, or retrospective. Set the emotional temperature: majestic, urgent, restrained, elegiac, jubilant.
-3. **Find the dramatic hinge:** one contrast that joins long-term narrative to the present moment.
-4. **Choose a single image family:** e.g., light and shadows, roads and crossroads, seasons and time.
-5. **Draft a four-move arc:** protagonists → enduring significance → present hinge → specific consequence.
-6. **Shape sound:** use parallel phrasing, varied sentence length, and a memorable final cadence. For voiceover, estimate duration using roughly 120–150 spoken words/minute, allowing pauses.
-7. **Edit for truth and originality:** check facts and tense; remove clichés, unjustified certainty, borrowed signature turns of phrase, and unnecessary lines.
-8. **Deliver:** give only the requested commentary unless notes, alternatives, timings, or annotations are requested.
+### Alternating voices: technical versus narrative
+- **Technical voice:** explain the mechanics briefly (power, placement, touch, angle, keeper's reach).
+- **Narrative voice:** explain why the particular attempt matters in the longer human story.
+- The voices should complement, not paraphrase, one another. In solo narration, alternate a matter-of-fact technical sentence with a humanly meaningful sentence.
+- Technical credibility gives emotional language something solid to stand on.
 
-## Modes and recommended shapes
+### The psychological contest
+- Visible acts such as delaying a ball return, walking slowly, or interacting with an opponent can legitimately become part of the scene.
+- Distinguish observation from inferred intention: say "appears designed to unsettle" rather than claiming certainty about private motives.
+- A contest of nerves can be dramatic even without elaborate metaphors.
 
-| Mode | Opening | Center | Ending |
+### Atmosphere in a few words
+- Use **one tangible detail** (piercing whistles, a silent stand, a long wait) to make the audience feel present.
+- Avoid generic crowd descriptions when a precise sound or movement carries the tension.
+- The description must fit the documented or user-supplied moment.
+
+### Rhetorical questions and repetition
+- An unanswered question can express genuine astonishment after a feat under pressure.
+- Repeat a structure only when the second version deepens the first, changes its scale or intensifies its significance.
+- Parallel compact clauses can join **character** with **moment**; vary cadence elsewhere so the pattern remains powerful.
+
+### Metaphor should be scarce and earned
+- Prefer one precise image over a stream of elaborate comparisons.
+- Select imagery that clarifies endurance, distance, time, passage, pressure or farewell.
+- Sometimes the most poetic sentence is completely literal because of where it falls.
+- Let the facts produce emotion; do not force grief, destiny or grandeur onto every line.
+
+### Rhythm is part of meaning
+- **Before action:** allow longer contextual sentences and deliberate pauses.
+- **During action:** become brief, direct and fast.
+- **Immediately after:** use a beat of silence or one compact reaction.
+- **Then:** name the implication, carefully distinguishing "on the brink" from "already victorious."
+- Read aloud; punctuation supports breath rather than ornament.
+
+### Narrative restraint and humane interpretation
+- Respect both competitors; a miss is not a moral failure.
+- Do not invent player feelings, claims of final chances, inevitable outcomes or hidden motivations.
+- Let dramatic impact arise from real stakes, not a prewritten conclusion.
+- Emotional contrast works across subject matter: hope versus fatigue, persistence versus release, fear versus acceptance. In personal stories, avoid glamorizing despair or presenting isolation as a deserved fate.
+
+## Practical workflow
+
+1. **Fact ledger:** record who, event, stage, timeline, actual outcome/status, relevant history, observed behavior and precise stakes. Separate known facts from interpretation.
+2. **Choose form:** crossroads introduction, pressure sequence, live decisive call, halftime bridge, post-match reflection, documentary tribute, or non-sport human narrative.
+3. **Choose one hinge:** the key movement from past to present, or from expectation to sudden outcome.
+4. **Assign narrative jobs:** historical callback; technical observation; atmosphere; action; consequence. Remove any sentence without a job.
+5. **Choose at most one image family:** light, time, roads, weather, silence, or another fitting motif. It may be unnecessary.
+6. **Draft the action first:** make the actual event intelligible in literal language.
+7. **Frame before and after:** add relevant history before and meaning after. Do not foreshadow an unverified result.
+8. **Perform a rhythm pass:** longer build-up, compressed decisive action, purposeful pauses, resonant landing.
+9. **Perform a restraint pass:** remove filler adjectives, redundant images, repetitive endings, exaggerated pain and dramatic clichés.
+10. **Verify and deliver:** check tense, people, facts, consent and tone; use the requested length, language and formatting.
+
+## Modes and default shapes
+
+| Mode | Opening | Core | Landing |
 |---|---|---|---|
-| Pre-match intro | protagonists or setting | history and contrast | imminent consequence |
-| Live decisive moment | immediate action | rising pace and jeopardy | clear, short call |
-| Halftime bridge | what changed | tactical or emotional tension | second-half question |
-| Post-match ending | verified outcome | what the result means | resonant image or farewell |
-| Documentary tribute | human achievement | setbacks and evolution | measured legacy |
-| Neutral analytical preview | accurate premise | contrasting strengths and uncertainties | open question, not prediction |
+| Pre-match introduction | names, legacy or place | contrast and turning point | actual forthcoming stakes |
+| Penalty shootout | relevant prior attempt | composure, keeper, atmosphere | kick, result, implication |
+| Live decisive play | immediate action | rapid factual call | brief, earned consequence |
+| Halftime bridge | what occurred | tactical and emotional question | unresolved second-half stakes |
+| Post-match | verified result | contrast between paths | meaning without exaggeration |
+| Documentary tribute | achievement | evolution and setbacks | measured, human legacy |
+| Reflective personal narration | concrete human subject | meaningful past and present hinge | agency, choice, open future |
 
-## Adjustable settings
+## Length and delivery settings
 
-- **Sport / competition:** football, basketball, tennis, athletics, etc.
-- **Characters:** individuals, teams, or a place and its supporters.
-- **Length:** tagline (10–20 words), teaser (30–60), intro (60–120), documentary passage (120+).
-- **Register:** restrained / cinematic / epic; default to cinematic but credible.
-- **Imagery:** light, time, roads, storms, legacy, distance, or user-specified.
-- **Perspective:** past / present / future, aligned with actual match status.
-- **Speech timing:** optional timestamps and pause markers, only if asked.
+- **10–20 words:** tagline; one contrast and one landing.
+- **25–45 words:** concise broadcast introduction; default for user requests for short poetic commentary.
+- **45–80 words:** brief cinematic commentary; one callback and one decisive pivot.
+- **80–140 words:** expanded narration; room for atmosphere and technical detail.
+- **Longer:** only if expressly requested.
+- **Register:** restrained / cinematic / epic. Default: **restrained cinematic**, not maximal grandiosity.
+- **Speech:** about 120–150 words per minute before dramatic pauses.
+- **Sport:** football by default, adaptable to basketball, tennis and other sports.
+- **Perspective:** pre-event, live or retrospective must match the actual event status.
 
-## Original examples (fictional scenarios)
+## Original examples (fictional)
 
-### Knockout semifinal — cinematic, ~45 words
-"Two captains. Two ways of carrying a nation's hopes. One commands the tempo; the other tears through it. Years have led them to this single evening. Beyond the whistle waits a final. But the road narrows here—and only one team can follow it."
+### Crossroads, 39 words
+"Two captains. Two lifetimes spent learning how to lead. One trusts patience; the other lives for sudden turns. Tonight, neither reputation can take the next step for them. The whistle will sound. And a narrow road will choose its travellers."
 
-### Championship decider — restrained, ~40 words
-"A season is measured in months, but sometimes remembered in minutes. Every journey has brought them to the same patch of grass. There is no more ground to recover, no other fixture to rescue them. The title now belongs to what happens next."
+### Penalty sequence, 42 words
+"He missed from this distance once, on an evening he has had years to remember. The crowd is restless now. One step back. A glance at the goalkeeper. The run-up. The strike. In—and the old memory yields, for a moment, to this one."
 
-### Post-match — outcome-neutral placeholder, ~35 words
-"The noise will fade. The score will remain. For one side, tonight opens a new chapter; for the other, it closes a hard-fought campaign. And somewhere between those two truths is why this game matters."
+### Reflective human crossroads, 39 words
+"He had stayed through difficult days, believing tomorrow might be kinder. But tonight brings a different question: not whether he can keep holding on, but whether he wants to. The answer is quiet. And the road beyond it remains his own."
 
 ## Avoid
-
-- Copying the source's distinctive metaphors or phrases (e.g. its paired flames/beacons formulation or its semifinal doorway image).
-- Inventing quotations, match stakes, titles, dates, player motives, or farewell narratives.
-- Predicting outcomes as certain or describing a completed event as undecided.
-- Overusing *destiny, immortality, legend, history, magic,* or other empty superlatives.
-- Building an entire script out of fragments; rhythm depends on contrast.
-- Using the same image twice if it adds no new meaning.
+- Reproducing recognizable wording or signature imagery from source broadcasts; do not impersonate an identifiable commentator.
+- Copying passage structure so tightly that the result is a near paraphrase.
+- Confusing a narrator's factual remark with the attributed voice of a particular broadcaster without evidence.
+- Fabricated match details, past results, internal motivations or certainty of the outcome.
+- Clichéd repeated "destiny", "legend", "immortality", "magic", "forever" and "final whistle" metaphors.
+- Making every line a fragment, rhetorical question or poetic image.
+- Treating a narrow advantage as a final victory.
+- Using an athlete's disappointment or someone's relationship pain as spectacle.
+- Turning an empathetic personal narrative into a declaration that someone deserves permanent loneliness.
 
 ## Quality checklist
-
-- [ ] The opening makes the subject immediately clear.
-- [ ] Each metaphor connects to a concrete fact or legitimate interpretation.
-- [ ] There is a discernible pivot from backstory to present stakes.
-- [ ] The stakes are factually correct and not overstated.
-- [ ] The final line has a clear landing and sounds natural aloud.
-- [ ] Both competitors are respected and the text is original.
-- [ ] Length, mood, timing, and tense suit the user's format.
+- [ ] Subject and stakes are instantly legible.
+- [ ] Any callback is relevant, correct and adds meaning.
+- [ ] Observed action is separated from inferred psychology.
+- [ ] Atmosphere is concrete, brief and grounded.
+- [ ] The action call remains simple and accurate.
+- [ ] Pace changes between setup, action and consequence.
+- [ ] A rhetorical question or metaphor is used only if earned.
+- [ ] The consequence is precise and does not pre-empt the outcome.
+- [ ] The ending lands without recycled clichés.
+- [ ] Originality, humanity and requested length are preserved.
 
 ## Invocation pattern
-
-When asked to write commentary, silently determine: **who / where / when / what is at stake / current result status / desired duration / register**. Use supplied facts first; if essentials are missing, draft an outcome-neutral version or ask a single indispensable question. Build the four-move arc and revise for spoken cadence. If asked to analyze a sample, identify its rhetorical mechanics and produce an original transfer of those mechanics, not a close paraphrase.
+Silently identify **who / when / what happened or may happen / what is genuinely at stake / one relevant past moment / one observable scene detail / desired duration**. For a live action, build **callback → atmosphere → action → implication**; for an introduction, build **protagonists → stature → pivot → stakes**. If the user supplies a transcript, study its rhetorical mechanics rather than reproducing or imitating its protected expression. Unless asked for explanation, output only the polished, original commentary.
