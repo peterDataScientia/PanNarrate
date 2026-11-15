@@ -1,6 +1,6 @@
 ---
 name: poetic-sports-commentary
-description: Write original, fact-grounded, emotionally powerful live sports commentary, match introductions, penalty shootouts, defeats, farewells, trailers and reflective narratives. Use historical callbacks, psychological stakes, atmospheric detail, controlled rhythm, selective metaphor, technical interpretation and concise decisive calls. Adaptable beyond sport without imitating any commentator.
+description: Write original, fact-grounded, emotionally powerful live sports commentary, grand match openings, match introductions, penalty shootouts, defeats, farewells, trailers and reflective narratives. Use historical callbacks, psychological stakes, atmospheric detail, controlled rhythm, selective metaphor, technical interpretation and concise decisive calls. Adaptable beyond sport without imitating any commentator.
 ---
 
 # Poetic Sports Commentary
@@ -53,6 +53,28 @@ Emotional arc: **verdict → contrast → vulnerability → legacy → open hori
 - **Avoid over-closing:** a departure from the field is not automatically the end of a career.
 - **Narrative status warning:** a transcript can describe a future or imagined scenario in present/past tense. Before using it as history, confirm date, competition, opponent and outcome. If not verified, label it hypothetical; never convert it into a real result.
 
+### D. The grand match opening
+Use to welcome an audience into a major event before kickoff. Give the scene stature without empty superlatives.
+
+1. **Open the broadcast:** a warm, confident greeting; a continuity phrase only when there really is an ongoing tournament, series or shared story.
+2. **Place the audience:** name the verified stadium, host city or occasion and invite listeners into its atmosphere without claiming they are physically present.
+3. **Give the event its precise identity:** competition, round and contestants; avoid ambiguous references to "the second quarterfinal" when the numbering isn't verified.
+4. **Activate relevant history:** select one genuine rivalry, rematch, contrast or shared milestone. History must earn the adjective "historic."
+5. **Turn to today's contest:** name both sides and preserve impartiality, leaving room for uncertainty.
+6. **Land on the consequence:** define the actual advancement path or stakes, not merely an emotional slogan.
+
+Emotional arc: **welcome → belonging → occasion → historical resonance → rivalry → stakes**.
+
+### Grand-opening craft notes
+- **Worldwide inclusion:** speak to viewers far beyond the stadium without assuming their emotions or loyalties.
+- **Deictic anchoring:** words like "here", "tonight" and "once more" should orient the listener in a real place and moment.
+- **Ceremonial syntax:** one flowing, well-balanced sentence can lend the occasion gravity; follow it with a crisp identification of the fixture and its prize.
+- **History in miniature:** one specific prior meeting can outweigh a generic declaration of an age-old rivalry.
+- **Geographical precision:** check stadium spelling, host location, national teams and the correct competition stage; transcripts may contain speech-to-text errors.
+- **Tournament bracket integrity:** know who has already advanced and whom the victor actually faces. Do not imply a future opponent was already known before its match concluded.
+- **Restraint:** an opening is an invitation, not a prediction; avoid piling on "epic", "legendary" and "historic".
+- **Voiceover pacing:** calmly establish the room, broaden to the world, then narrow to two competitors and the single stake.
+
 ## Deep lessons from the commentary studies
 
 ### Historical callbacks must carry narrative weight
@@ -104,7 +126,7 @@ Emotional arc: **verdict → contrast → vulnerability → legacy → open hori
 ## Practical workflow
 
 1. **Fact ledger:** record who, event, stage, timeline, actual outcome/status, relevant history, observed behavior and precise stakes. Separate known facts from interpretation.
-2. **Choose form:** crossroads introduction, pressure sequence, live decisive call, halftime bridge, post-match reflection, defeat-and-farewell elegy, documentary tribute, or non-sport human narrative.
+2. **Choose form:** grand match opening, crossroads introduction, pressure sequence, live decisive call, halftime bridge, post-match reflection, defeat-and-farewell elegy, documentary tribute, or non-sport human narrative.
 3. **Choose one hinge:** the key movement from past to present, or from expectation to sudden outcome.
 4. **Assign narrative jobs:** historical callback; technical observation; atmosphere; action; consequence. Remove any sentence without a job.
 5. **Choose at most one image family:** light, time, roads, weather, silence, or another fitting motif. It may be unnecessary.
@@ -118,6 +140,7 @@ Emotional arc: **verdict → contrast → vulnerability → legacy → open hori
 
 | Mode | Opening | Core | Landing |
 |---|---|---|---|
+| Grand match opening | welcome and verified setting | tournament identity and grounded history | fixture and actual path forward |
 | Pre-match introduction | names, legacy or place | contrast and turning point | actual forthcoming stakes |
 | Penalty shootout | relevant prior attempt | composure, keeper, atmosphere | kick, result, implication |
 | Live decisive play | immediate action | rapid factual call | brief, earned consequence |
@@ -140,6 +163,9 @@ Emotional arc: **verdict → contrast → vulnerability → legacy → open hori
 - **Perspective:** pre-event, live or retrospective must match the actual event status.
 
 ## Original examples (fictional)
+
+### Grand match opening, 43 words (fictional)
+"Welcome to the riverside ground, where a season's work reaches its narrowest passage. Beyond these stands, two cities follow every step. Their last meeting settled little; tonight offers another answer. Northside face Harbour United, with a place in Sunday's final at stake."
 
 ### Crossroads, 39 words
 "Two captains. Two lifetimes spent learning how to lead. One trusts patience; the other lives for sudden turns. Tonight, neither reputation can take the next step for them. The whistle will sound. And a narrow road will choose its travellers."
@@ -165,6 +191,7 @@ Emotional arc: **verdict → contrast → vulnerability → legacy → open hori
 - Turning an empathetic personal narrative into a declaration that someone deserves permanent loneliness.
 
 ## Quality checklist
+- [ ] The opening establishes audience, verified venue, event and real stakes without boilerplate.
 - [ ] Subject and stakes are instantly legible.
 - [ ] Any callback is relevant, correct and adds meaning.
 - [ ] Observed action is separated from inferred psychology.
@@ -179,4 +206,4 @@ Emotional arc: **verdict → contrast → vulnerability → legacy → open hori
 - [ ] Originality, humanity and requested length are preserved.
 
 ## Invocation pattern
-Silently identify **who / when / what happened or may happen / what is genuinely at stake / one relevant past moment / one observable scene detail / desired duration**. For a live action, build **callback → atmosphere → action → implication**; for an introduction, build **protagonists → stature → pivot → stakes**; for a defeat or farewell, build **verdict → past high point → present human detail → enduring legacy → restrained exit**. If the user supplies a transcript, study its rhetorical mechanics rather than reproducing or imitating its protected expression. Unless asked for explanation, output only the polished, original commentary.
+Silently identify **who / when / what happened or may happen / what is genuinely at stake / one relevant past moment / one observable scene detail / desired duration**. For a live action, build **callback → atmosphere → action → implication**; for a grand opening, build **welcome → place → occasion → relevant history → contestants → stakes**; for an introduction, build **protagonists → stature → pivot → stakes**; for a defeat or farewell, build **verdict → past high point → present human detail → enduring legacy → restrained exit**. If the user supplies a transcript, study its rhetorical mechanics rather than reproducing or imitating its protected expression. Unless asked for explanation, output only the polished, original commentary.
